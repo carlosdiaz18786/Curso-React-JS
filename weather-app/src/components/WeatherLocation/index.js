@@ -1,6 +1,7 @@
 import React,{ Component } from 'react';
 import Location from './Location';
 import WeatherData from './WeatherData';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import './styles.css';
 import transformWeather from '../../services/transformWeather'
 import {api_weather} from  '../../constants/api_url';
@@ -28,11 +29,9 @@ class WeatherLocation  extends Component {
 
     handleUpdateClick = () =>{
         fetch(api_weather).then( resolve => {
-            console.log(resolve);
             return resolve.json(); 
         }).then(data => {
             const newWeather = transformWeather(data);
-            console.log(newWeather);
             this.setState({
                 data: newWeather
             });
@@ -45,8 +44,10 @@ class WeatherLocation  extends Component {
         return (
             <div className="weatherLocationCont">
                 <Location city={city}></Location>
-                {data ?<WeatherData data={data}></WeatherData> : 
-                    "Cargando..."}
+                {
+                    data ?<WeatherData data={data}></WeatherData> : 
+                    <CircularProgress size={50}></CircularProgress>
+                    }
              </div>
         );
     }
