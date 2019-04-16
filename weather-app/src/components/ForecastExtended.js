@@ -17,15 +17,26 @@ class ForecastExtended extends Component{
     }
 
     componentDidMount(){
-        //fetch or axios
-        const url_forecast = `${url}?q=${this.props.city}&appid=${api_key}`;
-        fetch(url_forecast).then(
-            data=>( data.json())
-            ).then( weather_data =>{
-                 const forecastData = transformForecast(weather_data);
-                 this.setState({forecastData});
-                }
-            );
+        this.updateCity(this.props.city);
+    }
+    //No se ejecuta la primera vez por lo que es necesario el didmount
+    componentWillReceiveProps(nextProps){
+        if(nextProps.city !== this.props.city){
+            this.setState({forecastData:null});
+            this.updateCity(nextProps.city);
+        }
+    }
+
+    updateCity = city =>{
+    //fetch or axios
+     const url_forecast = `${url}?q=${this.props.city}&appid=${api_key}`;
+     fetch(url_forecast).then(
+         data=>( data.json())
+         ).then( weather_data =>{
+              const forecastData = transformForecast(weather_data);
+              this.setState({forecastData});
+             }
+         );
     }
     
     renderForecastItemDays(forecastData){
