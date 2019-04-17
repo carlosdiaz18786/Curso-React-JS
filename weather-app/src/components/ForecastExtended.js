@@ -4,10 +4,8 @@ import ForecastItem from './ForecastItem';
 import transformForecast from './../services/transformForecast';
 import './styles.css';
 
-
-
-export const api_key = "97cfe4e3cb9d47e44621f70bb1ed4f7a";
-export const url = "http://api.openweathermap.org/data/2.5/forecast"
+const api_key = "97cfe4e3cb9d47e44621f70bb1ed4f7a";
+const url = "http://api.openweathermap.org/data/2.5/forecast"
 
 class ForecastExtended extends Component{
 
